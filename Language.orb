@@ -1,0 +1,72 @@
+api Test
+
+  (Self) ! (lhs Int) (Int)
+    case < 2 = 1
+    case _ = lhs * ((lhs - 1)!)
+  ...
+
+  type (Self) !<lhs Int>(lhs) (Int)
+...
+
+api Language within Orb::Core
+
+  api String
+
+    (Self) split (delimiter String) ([String])
+      case (_) (String.default) (_) = return [String]()
+
+      return self.map (_) (idx Int, char String) (String)
+        return
+      ...
+    ...
+  ...
+
+  api Scope
+    § underscore denotes private to enclosing scope
+    alias _Environment = [String : Any]
+
+    § params ending in '?' can be omitted. Type.default is used if omitted.
+    type Scope(enclosing? Scope, environment? _Environment)
+
+    Scope.default = Scope()
+    _Environment.default = _Environment()
+  ...
+
+  api Reflection
+
+    type Node
+      case type AtomicNode<V>(value V)
+        case IdentifierNode<String>
+        case IntegerNode<Integer>
+        case RealNode<Real>
+        case OperatorNode<Operator>
+
+      case type ExpressionNode<A: AtomicNode>(atom A)
+        case BinaryExpression(lhs: ExpressionNode, op: OperatorNode, rhs: ExpressionNode)
+
+    (n N) evaluate<N: Node, R> () (R)
+      case (n AtomicNode) () (N.V) = n.value
+      case (n ExpressionNode) () (N.A) = n.atom.value
+      case (n BinaryExpressionNode) () (ExpressionNode) = return ExpressionNode(n.op.apply(n.lhs.evaluate, n.rhs.evaluate))
+  ...
+
+  api Types
+
+    api Type with Scope
+
+      type Type
+
+      (Type) stringValue () (String)
+        return Scope.currentScope[self]
+      ...
+    ...
+
+    api BasicTypes
+
+      api Numerics
+
+        type Integer<>
+      ...
+    ...
+  ...
+...

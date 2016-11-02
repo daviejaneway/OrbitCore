@@ -1,0 +1,44 @@
+api String within Orb::Core::Types
+	with Orb::Native
+	with Orb::Core::Encoding
+	
+	type String<E: StringEncoding>(length Int, characters [UInt<E.Width>])
+		Type("String", E.Width * length)
+
+	@Documentation(description: "The empty string")
+	(String) default () (default String)
+		default = String("")
+	...
+	
+	@Documentation(description: "A constructor that calculates the String's length.")
+	(String) new<E: StringEncoding> (characters [UInt<E.Width>]) (self String)
+		self = String(characters.length, characters)
+	...
+
+	@Documentation(description: "A constructor that initialises a UTF8 string.")
+	(String) new (characters [UInt<8>]) (self String)
+		self = String<UTF8>(characters.length, characters)
+	...
+
+	@Documentation(description: "Concatenates the receiver with the argument.")
+	(self String) append (other String) (newString String)
+		newString = "\(self)\(other)"
+	...
+
+	@Documentation(description: "String concatenation operator.")
+	(String) infix:+ (lhs String, rhs String) (String)
+		"\(lhs)\(rhs)"
+	...
+
+	@Documentation(description: "String repetition operator")
+	(String) infix:* (lhs String, rhs Int) (s String)
+		s = String.default
+		rhs.for s.append(lhs) 		
+	...
+
+	@Documentation(description:
+		"Extracts a substring from receiver[range.start] to receiver[range.end]")
+	(self String<E>) substring<E: StringEncoding> (range Range<Int, E.Width>) (sub String)
+		sub = self.characters[range.start ... range.end]
+	...
+...

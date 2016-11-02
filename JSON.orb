@@ -1,0 +1,7 @@
+api JSON within Orb::Core
+  alias JSONAtom = <String | Int | Float | JSONObject>
+  type JSONObject(key String, value JSONAtom)
+  alias JSONArray = [JSONObject]
+
+
+...

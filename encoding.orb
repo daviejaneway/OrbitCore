@@ -1,0 +1,7 @@
+api Encoding within Orb::Core
+	type StringEncoding<Width Int> Type(UInt<4>)
+		case UTF8<8>
+		case UTF16<16>
+		case UTF32<32>
+		case ISO<4>
+...

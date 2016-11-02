@@ -1,0 +1,17 @@
+api API within Orb::Core::Types
+	type API(
+		name String,
+		parentAPI API,
+		_declaredTypes? [Type],
+		_declaredSignatures? [Signature]
+	)
+	
+	(API) new (name String, parentAPI API) (self API)
+		self = API(name, parentAPI, default, default)
+	...
+	
+	(self API) extend<T: Type | Signature> (member T) ()
+		case () (member Type) () self.declaredTypes.append(member)
+		case _ self.declaredSignatures.append(member)
+	...
+...

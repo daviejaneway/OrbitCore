@@ -1,0 +1,7 @@
+api Types within Orb:Core
+	type Type(name String)
+
+	api Number
+		type Number("Number")(size Orb:Native:Int)
+	...
+...

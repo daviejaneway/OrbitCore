@@ -1,0 +1,3 @@
+api Index within Orb::Core::Types
+	type IndexedType<T>(unitValue T) Type(T.size)
+...

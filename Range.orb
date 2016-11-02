@@ -1,0 +1,24 @@
+api Range within Orb::Core::Types
+	with Orb::Core::Index
+
+	@Documentation(
+		description: "A range represents a window into a (sub)section of an indexable object."
+		discussion: "Ranges, by themselves, do not represent anything. They are only useful in the context of some indexable object."
+	)
+	type Range<T: IndexedType>(start T, end T) Type(T.size * 2 + Int.size)
+
+	@Documentation(description: "Inclusive range construction operator")
+	(Range) infix:"..."<T: IndexedType> (lhs T, rhs T) (self Range)
+		self = Range<T>(lhs, rhs)
+	...
+
+	@Documentation(description: "Left-Inclusive range construction operator")
+	(Range) infix:"..|"<T: IndexedType> (lhs T, rhs T) (self Range)
+		self = Range<T>(lhs, rhs - T.unitValue)
+	...
+	
+	@Documentation(description: "Right-Inclusive range construction operator")
+	(Range) infix:"|.."<T: IndexedType> (lhs T, rhs T) (self Range)
+		self = Range<T>(lhs - T.unitValue, rhs)
+	...
+...
