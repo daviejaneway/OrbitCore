@@ -1,0 +1,5 @@
+api Meta within Orb::Core
+	with Orb::Core::Reflect
+	
+	type Meta<O: ReflectedObject, K, V>(owner: O, data [K:V])
+...

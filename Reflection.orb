@@ -1,0 +1,7 @@
+api Reflect within Orb::Core
+	api ReflectedObject
+		(Self) canonicalName () (canonicalName String)
+		(Self) enclosingAPI () (API)
+		(Self) enclosingScope () (ReflectedObject)
+	...
+...

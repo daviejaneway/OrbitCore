@@ -1,10 +1,10 @@
-api API within Orb::Core::Types
+api API within Orb::Core::Reflection
 	type API(
 		name String,
 		parentAPI API,
 		_declaredTypes? [Type],
 		_declaredSignatures? [Signature]
-	)
+	) ReflectedObject
 	
 	(API) new (name String, parentAPI API) (self API)
 		self = API(name, parentAPI, default, default)
@@ -13,5 +13,20 @@ api API within Orb::Core::Types
 	(self API) extend<T: Type | Signature> (member T) ()
 		case () (member Type) () self.declaredTypes.append(member)
 		case _ self.declaredSignatures.append(member)
+	...
+
+	@Conformance(api: ReflectedObject.canonicalName)
+	(self Self) canonicalName () (canonicalName String)
+		canonicalName = self.name
+	...
+	
+	@Conformance(api: ReflectedObject.enclosingAPI)
+	(self Self) enclosingAPI () (API)
+		self.parentAPI
+	...
+
+	@Conformance(api: ReflectedObject.enclosingScope)
+	(self Self) enclosingScope () (ReflectedObject)
+		
 	...
 ...

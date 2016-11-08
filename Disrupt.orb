@@ -1,0 +1,14 @@
+api Disrupt<Tuple<2, Disruption, Method>> within Orb::Core
+	with Orb::Core::Reflect
+
+	type _T = Tuple<2, Disruption, Method>
+	
+	type Disruptive(data T)
+		Phase<T>("Orb::Core::Disruptive")
+
+	type Disruption (Self) () ()
+
+	(self Disruptive) receive (data T) ()
+		data[1].declaredParameters.insert(0, data[0])
+	...
+...

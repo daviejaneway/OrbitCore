@@ -1,0 +1,18 @@
+api Phase<T: Tuple> within Orb::Core
+	type _PhaseContext(registeredPhases [Phase])			
+	type Phase(key String)
+	
+	(self PhaseContext) retrieve (key String) (Phase)
+		self.registeredPhases[.key == key]
+	...
+	
+	(self Phase) receive (input T) ()
+
+	@Disruptive(handler: "dis")
+	(Orb::Core::Syntax) syntax:"@" (phaseName String, data T) ()
+		phase = PhaseContext.default.retrieve(phaseName)
+		match phase
+			case default dis.trigger("Unknown phase \(phaseName)")
+			case _ phase.receive(data)
+	...
+...
