@@ -1,0 +1,17 @@
+api FFI within Orb::Core
+	type Link(libName String) Phase<String>("Orb::Core::FFI::Link")
+	
+	api C
+		type bool = Int<1>
+		type int = Int<16>
+		type int8_t = Int<8>
+		type int16_t = Int<16>
+		type int32_t = Int<32>
+		type int64_t = Int<64>
+		
+		type char = Int<Orb::Platform::Char.width>
+
+		type float = Real<32>
+		type double = Real<64>
+	...
+...

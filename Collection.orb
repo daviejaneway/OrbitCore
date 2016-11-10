@@ -1,0 +1,29 @@
+@Documentation(description: "")
+api Collection within Orb::Core::Types
+	type Collection<E>(elements E...)
+
+	(self Collection) numberOfElements () (Int)
+	
+	(self Collection) empty () (Bool)
+	(self Collection) contains () (Bool)
+
+	(self Collection<E>) extend<E> (element E) (Bool)
+	(self Collection<E>) with<E> (element E) (other Collection<E>)
+	
+	(self Collection<E>) remove<E> (element E) (Bool)
+	(self Collection<E>) without<E> (element E) (other Collection<E>)
+	
+	(self Collection) removeAll () (Bool)
+...
+
+api Array within Orb::Core::Types::Collection
+	type Array<E> Collection<E>
+
+	(Array<E>) new (elements E...) () (self Array<E>)
+		
+	...
+	
+	(self Array) numberOfElements () (Int)
+		
+	...
+...

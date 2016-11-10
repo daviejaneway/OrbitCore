@@ -1,0 +1,8 @@
+api Tuple within Orb::Core::Types
+	type Tuple<T...>(size Int, elements T...)
+		case default Tuple(0, default)
+	
+	(Tuple) new<T...> (elements T...) (self Tuple)
+		self = Tuple(elements.count, elements)
+	...
+...

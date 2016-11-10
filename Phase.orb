@@ -1,6 +1,12 @@
 api Phase<T: Tuple> within Orb::Core
-	type _PhaseContext(registeredPhases [Phase])			
+	type _PhaseContext(registeredPhases Set<Phase>)			
 	type Phase(key String)
+	
+	(Phase) new (key String) (self Phase)
+		self = Phase(key)
+		
+		PhaseContext.default.registeredPhases[key] = self
+	...
 	
 	(self PhaseContext) retrieve (key String) (Phase)
 		self.registeredPhases[.key == key]
@@ -8,7 +14,7 @@ api Phase<T: Tuple> within Orb::Core
 	
 	(self Phase) receive (input T) ()
 
-	@Disruptive(handler: "dis")
+	@Disruptive(handler: dis)
 	(Orb::Core::Syntax) syntax:"@" (phaseName String, data T) ()
 		phase = PhaseContext.default.retrieve(phaseName)
 		match phase
